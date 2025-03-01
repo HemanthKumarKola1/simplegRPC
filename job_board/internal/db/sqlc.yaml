@@ -1,0 +1,31 @@
+version: "2"
+sql:
+  - schema: "migrations/*.sql"
+    queries: "queries/public_user.sql"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "db"
+        out: "sqlc"
+        sql_package: "pgx/v5"
+        emit_json_tags: true
+        emit_pointers_for_null_types: true
+        overrides:
+          - db_type: "TEXT"
+            go_type: "string"
+          - db_type: "INT"
+            go_type: "int"
+          - db_type: "INTEGER"
+            go_type: "int"
+          - db_type: "BIGINT"
+            go_type: "int64"
+          - db_type: "BIGSERIAL"
+            go_type: "int64"
+          - db_type: "SERIAL"
+            go_type: "int"
+          - db_type: "DATE"
+            go_type: "time.Time"
+          - db_type: "TIMESTAMP WITH TIME ZONE"
+            go_type: "time.Time"
+          - db_type: "DECIMAL"
+            go_type: "float64"
